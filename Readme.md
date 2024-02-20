@@ -203,6 +203,7 @@ Request Schema
 
 Response Schema
 - A list of dictionaries containing information about every version of each note in the below format
+
 | Body | Type     | Description                |
 | :-------- | :------- | :------------------------- |
 | `id` | `number` | Id of the note version created. (Different from Note Id)|
