@@ -15,8 +15,34 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
+from rest_framework.routers import DefaultRouter
+from notes.views import (
+    NoteViewSet, 
+    NoteVersionViewSet,
+    login_view,
+    signup,
+    create_note,
+    get_note_by_id,
+    share_note,
+    update_note,
+    get_note_version_history,
+    logout_view
+    )
+
+router = DefaultRouter()
+router.register(r'notes', NoteViewSet)
+router.register(r'note-versions', NoteVersionViewSet)
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('', include(router.urls)),
+    path('login', login_view),
+    path('signup', signup),
+    path('notes/create', create_note),
+    path('notes/<int:id>', get_note_by_id),
+    path('notes/share', share_note),
+    path('notes/update/<int:id>', update_note),
+    path('notes/version-history/<int:id>', get_note_version_history),
+    path('logout', logout_view),
+    path('admin', admin.site.urls),
 ]
