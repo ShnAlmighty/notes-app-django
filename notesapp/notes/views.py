@@ -117,7 +117,7 @@ def get_note_version_history(request, id):
     user = request.user
     if user != note.owner and user not in note.shared_with.all():
         return Response({'message': 'Access Forbidden'}, status=403)
-    note_versions = NoteVersion.objects.filter(note_id=id)
+    note_versions = NoteVersion.objects.filter(note=id)
     serializer = NoteVersionSerializer(note_versions, many=True)
     return Response(serializer.data)
 

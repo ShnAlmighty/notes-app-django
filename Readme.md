@@ -26,7 +26,7 @@ $python3 notesapp/manage.py createsuperuser
 
 ## Starting the Process
 To start the server:
-```bash
+```bash 
 $python3 notesapp/manage.py runserver
 ```
 
@@ -162,7 +162,7 @@ Response Schema
 | `message` | `string` | Successfull API invocation message|
 
 #### Update Note
-This will be used to update an existing note
+This will be used to update an existing note. **Note** Previous content of the note is required along with new one.
 
 ```http
 POST /notes/update/:id
@@ -212,6 +212,12 @@ Response Schema
 | `note` | `number` | Id of the note |
 | `note_version` | `string` | Version of the note when the update was made|
 | `made_by` | `string` | Id of the user who updated the note |
+
+## Testing
+To run the basic test cases, use the below command from the project's root directory in the command line:
+```bash 
+$python3 notesapp/manage.py test notes
+```
 
 ## Contributing
 
