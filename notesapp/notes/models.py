@@ -6,9 +6,11 @@ class Note(models.Model):
     content = models.TextField()
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
     shared_with = models.ManyToManyField(User, related_name='shared_notes', blank=True)
+    note_version = models.PositiveBigIntegerField()
 
 class NoteVersion(models.Model):
     note = models.ForeignKey(Note, on_delete=models.CASCADE)
     content = models.TextField()
     made_by = models.ForeignKey(User, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
+    note_version = models.PositiveBigIntegerField()

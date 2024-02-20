@@ -52,11 +52,13 @@ def signup(request):
 def create_note(request):
     user = request.user
     request.data['owner'] = user.pk
+    version = 1
+    request.data['note_version'] = version
     serializer = NoteSerializer(data=request.data)
     if serializer.is_valid():
         serializer.save(owner=request.user)
         note = get_object_or_404(Note, id=serializer.data["id"])
-        note_version = NoteVersion.objects.create(note=note, content=note.content, made_by=user)
+        note_version = NoteVersion.objects.create(note=note, content=note.content, made_by=user, note_version=version)
         return Response(serializer.data, status=201)
     return Response(serializer.errors, status=400)
 
@@ -98,11 +100,12 @@ def update_note(request, id):
         return Response({'message': 'Access Forbidden'}, status=403)
     new_content = request.data.get('content')
     if new_content.startswith(note.content):
-        note_version = NoteVersion.objects.create(note=note, content=new_content, made_by=user)
         note.content = new_content
+        version = note.note_version + 1
+        note.note_version = version
         note.save()
+        note_version = NoteVersion.objects.create(note=note, content=new_content, made_by=user, note_version=version)
         return Response({'message': 'Note updated successfully', 'note_version_id': note_version.id})
-            # return Response(serializer.data)
     else:
         return Response({'message': 'Invalid update. Only new sentences can be added between existing lines.'}, status=400)
 
