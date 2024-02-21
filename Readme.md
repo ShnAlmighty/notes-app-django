@@ -6,7 +6,7 @@ This repository contains APIs developed in Django for basic note taking function
 ## Prerequisites
  1. Install the dependencies by running the below commands from the project's root directory in the command line:
 ```bash
-$pip3 install requirements.txt
+$pip3 install -r requirements.txt
 ```
  or
 
@@ -14,7 +14,7 @@ $pip3 install requirements.txt
 ```bash
 $python3 -m venv env
 $source env/bin/activate
-(env)$pip3 install requirements.txt
+(env)$pip3 install -r requirements.txt
 ```
 
  2. Setup Database, the project uses SQLite as the database engine by default. The database can be setup by running the following commands (also creates the super user for Django administrative privileges):
